@@ -48,17 +48,6 @@ void displayRasterText(float x, float y, float z, char *stringToDisplay)
 	}
 }
 
-void init()
-{
-	glClearColor(0.0, 0.0, 0.0, 0);
-	glColor3f(1.0, 0.0, 0.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	gluOrtho2D(-1200, 1200, -700, 700); //<-----CHANGE THIS TO GET EXTRA SPACE
-	glMatrixMode(GL_MODELVIEW);
-}
-
 void introScreen()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -316,32 +305,6 @@ void keyOperations()
 	}
 }
 
-void display()
-{
-	keyOperations();
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	switch (viewPage)
-	{
-	case MENU:
-		startScreenDisplay();
-		break;
-	case GAME:
-		gameScreenDisplay();
-		// reset scaling values
-		glScalef(1 / 2, 1 / 2, 0);
-		break;
-	case GAMEOVER:
-		displayGameOverMessage();
-		startScreenDisplay();
-		break;
-	}
-
-	glFlush();
-	glLoadIdentity();
-	glutSwapBuffers();
-}
-
 void passiveMotionFunc(int x, int y)
 {
 	mouseX = float(x) / (m_viewport[2] / 1200.0) - 600.0;
@@ -372,6 +335,103 @@ void refresh()
 void keyReleased(unsigned char key, int x, int y)
 {
 	keyStates[key] = false;
+}
+
+
+//STAR FUNCTIONALITY TEST
+
+#define NUM_STARS 100
+#define TWINKLE_SPEED 0.01
+
+float starPositions[NUM_STARS][2];
+float starColors[NUM_STARS][3];
+float twinkle[NUM_STARS];
+
+void initStars()
+{
+    // Initialize star positions and colors
+    for (int i = 0; i < NUM_STARS; i++)
+    {
+        starPositions[i][0] = (float)(rand() % 2400 - 1200);
+        starPositions[i][1] = (float)(rand() % 1400 - 700);
+        starColors[i][0] = (float)(rand() % 256) / 255.0;
+        starColors[i][1] = (float)(rand() % 256) / 255.0;
+        starColors[i][2] = (float)(rand() % 256) / 255.0;
+        twinkle[i] = (float)rand() / RAND_MAX; // Random brightness between 0.0 and 1.0
+    }
+}
+
+void drawDiamond(float x, float y, float size)
+{
+    glBegin(GL_POLYGON);
+    glVertex2f(x - size, y);
+    glVertex2f(x, y + size);
+    glVertex2f(x + size, y);
+    glVertex2f(x, y - size);
+    glEnd();
+}
+
+void drawStars()
+{
+    float diamondSize = 5.0; // Adjust the size of the diamonds
+
+    for (int i = 0; i < NUM_STARS; i++)
+    {
+        glColor3f(starColors[i][0] * twinkle[i], starColors[i][1] * twinkle[i], starColors[i][2] * twinkle[i]);
+        drawDiamond(starPositions[i][0], starPositions[i][1], diamondSize);
+
+        // Update twinkle value
+        twinkle[i] += TWINKLE_SPEED;
+        if (twinkle[i] > 1.0)
+        {
+            twinkle[i] = 0.0; // Reset twinkle value if it exceeds 1.0
+        }
+    }
+}
+
+// Display, init, main
+
+void display()
+{
+	keyOperations();
+	glClear(GL_COLOR_BUFFER_BIT);
+
+    // Draw Stars
+    drawStars();
+
+	switch (viewPage)
+	{
+	case MENU:
+		startScreenDisplay();
+		break;
+	case GAME:
+		gameScreenDisplay();
+		// reset scaling values
+		glScalef(1 / 2, 1 / 2, 0);
+		break;
+	case GAMEOVER:
+		displayGameOverMessage();
+		startScreenDisplay();
+		break;
+	}
+
+	glFlush();
+	glLoadIdentity();
+	glutSwapBuffers();
+}
+
+void init()
+{
+	glClearColor(0.0, 0.0, 0.0, 0);
+	glColor3f(1.0, 0.0, 0.0);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	gluOrtho2D(-1200, 1200, -700, 700); //<-----CHANGE THIS TO GET EXTRA SPACE
+	glMatrixMode(GL_MODELVIEW);
+
+    // intialize stars 
+    initStars();
 }
 
 int main(int argc, char **argv)
