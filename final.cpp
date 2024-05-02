@@ -62,7 +62,7 @@ void introScreen()
 	// glColor3f(0.0, 0.0, 1.0);
 	// displayRasterText(-325, 300, 0.0,"COMPUTER GRAPHICS PROJECT");
 	glColor3f(1.0, 0.0, 1.0);
-	displayRasterText(-175, 225, 0.0, "ALIEN SHOOTERS");
+	displayRasterText(-175, 225, 0.0, "COSMOS COMBAT");
 
 	// 	glColor3f(1.0, 0.7, 0.8);
 	// displayRasterText(-100, 150, 0.0,"created by");
@@ -78,7 +78,7 @@ void introScreen()
 	glColor3f(1.0, 0.0, 0.0);
 	displayRasterText(500, -100, 0.0, "Under the Guidance of");
 	glColor3f(1.0, 1.0, 1.0);
-	displayRasterText(500, -200, 0.0, "Prof Archana Kumari");
+	displayRasterText(500, -200, 0.0, "Dr. Archana Kumari");
 	// 	glColor3f(1.0, 0.0, 0.0);
 	// displayRasterText(-250, -400, 0.0,"Academic Year 2020-2021");
 	glColor3f(1.0, 1.0, 1.0);
