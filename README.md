@@ -2,9 +2,11 @@
 
 ## Screenshots
 
-![Intro Screen](screenshots/intro_screen.png)
-![Gameplay Screen](screenshots/gameplay_screen.png)
-![Game Over Screen](screenshots/game_over_screen.png)
+![Intro Screen](images/intro.png)
+![Start Screen](images/start.png)
+![Instruction Screen](images/instructions.png)
+![Gameplay Screen](images/shoot.png)
+![Game Over Screen](images/gameover.png)
 
 ## Table of Contents
 

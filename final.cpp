@@ -508,7 +508,7 @@ void keyReleased(unsigned char key, int x, int y)
 
 //STAR FUNCTIONALITY (Unstale)
 #define NUM_STARS 70
-#define TWINKLE_SPEED 0.01
+#define TWINKLE_SPEED 0.015
 
 float starPositions[NUM_STARS][2];
 float starColors[NUM_STARS][3];
@@ -601,6 +601,7 @@ void display()
 		startScreenDisplay();
 		break;
 	}
+
 
 	glFlush();
 	glLoadIdentity();
